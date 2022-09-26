@@ -1,9 +1,10 @@
-<p align="center"><img src="https://raw.githubusercontent.com/titaniumnetwork-dev/ultraviolet-static/main/uv.png" height="200">
+<p align="center"><img src="https://raw.githubusercontent.com/Titanium-Network/ultraviolet-static/main/uv.png" height="200">
 </p>
 
-<h1 align="center">Ultraviolet-Node</h1>
+<h1 align="center">Ultraviolet</h1>
 
-<p align="center">The deployable version of Ultraviolet, a highly sophisticated proxy used for evading internet censorship or accessing websites in a controlled sandbox using the power of service-workers and more!<br><br></p>
+<p align="center">Advanced web proxy used for evading internet censorship or accessing websites in a controlled sandbox.<br><br>
+Ultraviolet works by intercepting HTTP requests with a service worker script that follows the <a href="https://github.com/tomphttp">TompHTTP</a> specifications</p>
 
 ## Features
 - CAPTCHA support along with hCAPTCHA support
@@ -31,7 +32,7 @@
 
 ## Used by
 - [Incognito](https://github.com/caracal-js/Incognito), a popular web proxy service with focus on privacy
-- [Holy-Unblocker](https://github.com/titaniumnetwork-dev/Holy-Unblocker), a popular web proxy service focusing on bypassing web filters and more
+- [Holy-Unblocker](https://github.com/Titanium-Network/Holy-Unblocker), a popular web proxy service focusing on bypassing web filters and more
 - [Hypertabs](titaniumnetwork.org/), a web proxy service using a PWA browser as its frontend
 
 ## Table of Contents
@@ -50,7 +51,7 @@ Installation of Ultraviolet is simple. You can find a Tl;DR of the installation 
 ## Basic Guide
 
 ```sh
-$ git clone https://github.com/titaniumnetwork-dev/Ultraviolet-Node --recursive
+$ git clone https://github.com/Titanium-Network/Ultraviolet-Node --recursive
 $ cd Ultraviolet-Node
 $ npm install
 $ npm start
@@ -58,8 +59,7 @@ $ npm start
 
 ## Replit Setup Guide
 
-To setup on Replit, first click on the "Run on Replit" button. After loading into your repl, click on the green "Run" button. Alternatively, run the following commands:
-
+To setup on Replit, first click on the "Run on Replit" button. After loading into your repl, run the following commands:
 ```sh
 $ npm install
 $ chmod +x main.sh
@@ -77,7 +77,7 @@ Below will describe a comprehensive guide to install Ultraviolet on Linux machin
 To clone the repository, simply run the following command:
 
 ```sh
-$ git clone https://github.com/titaniumnetwork-dev/Ultraviolet-Node --recursive
+$ git clone https://github.com/Titanium-Network/Ultraviolet-Node --recursive
 ```
 
 The `--recursive` flag will clone the repository and all submodules.
@@ -135,15 +135,35 @@ self.__uv$config = {
 
 ## Static Files
 
-Static files is the frontend for Ultraviolet. A standalone repository for it can be found [here](https://github.com/titaniumnetwork-dev/Ultraviolet-Static).
+Static files is the frontend for Ultraviolet. A standalone repository for it can be found [here](https://github.com/Titanium-Network/Ultraviolet-Static).
+
+## Nginx configuration
+
+```nginx
+location / {
+	proxy_busy_buffers_size  512k;
+	proxy_buffers  4 512k;
+	proxy_buffer_size  256k;
+ 	proxy_pass http://localhost:8080;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'Upgrade';
+    	proxy_set_header X-Real-IP $remote_addr;
+    	proxy_set_header X-Forwarded-Host $host:$server_port;
+    	proxy_set_header X-Forwarded-Server $host;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $host;
+}
+
+```
 
 ## Core Scripts
 
-[Configuration](#configuration) mentions a few scripts that make up Ultraviolet. To get documentation for what each of the scripts do, check out the [documentation](https://github.com/titaniumnetwork-dev/Ultraviolet-Core) for them in their standalone repository.
+[Configuration](#configuration) mentions a few scripts that make up Ultraviolet. To get documentation for what each of the scripts do, check out the [documentation](https://github.com/Titanium-Network/Ultraviolet-Core) for them in their standalone repository.
 
 # Main Scripts After Building
 
-The client-hooking & service worker scripts required for UV are located in [ultraviolet-scripts](https://github.com/titaniumnetwork-dev/ultraviolet-scripts)
+The client-hooking & service worker scripts required for UV are located in [ultraviolet-scripts](https://github.com/Titanium-Network/ultraviolet-scripts)
 
 - Scripts
     - `uv.sw.js` Service worker gateway
